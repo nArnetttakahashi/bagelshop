@@ -1,0 +1,75 @@
+<!--  ページ６を作って、「注文確定ページ（そこで"localStorage.clear()）」（「一つ前のページに戻るボタン」のアドオン） -->
+
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ベーグルフレーバー選択</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .container {
+                text-align: center;
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                font-size: 2em;
+                color: #333;
+            }
+            .button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 1em;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            .button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>ベーグルフレーバーを選んでください</h1>
+            <label>
+                <input type="radio" name="bagel" value="Plain"> Plain
+            </label>
+            <label>
+                <input type="radio" name="bagel" value="Sesame"> Sesame
+            </label>
+            <label>
+                <input type="radio" name="bagel" value="Everything"> Everything
+            </label>
+            <button class="button" type="button" onclick="saveBagel()">次に進む</button>
+        </div>
+
+        <script>
+            function saveBagel() {
+                const bagel = document.querySelector('input[name="bagel"]:checked');
+                if (bagel) {
+                    localStorage.setItem('selectedBagel', bagel.value);
+                    window.location.href = '2_Spread.html';  // 2_Spread.htmlに遷移する
+                } else {
+                    alert('ベーグルのフレーバーを選んでください。');
+                }
+            }
+        </script>
+    </body>
+</html>
+

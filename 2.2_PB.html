@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>追加オプション</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <p>選択したベーグル: <span id="bagel"></span></p>
+        <p>選択したスプレッド: <span id="spread"></span></p>
+        <h1>追加オプションを選んでください</h1>
+        <form id="pbForm" action="3_Protein.html" method="get">
+            <label>
+                <input type="checkbox" name="pb" value="Jam"> Jam
+            </label><br>
+            <label>
+                <input type="checkbox" name="pb" value="Penut butter"> Peanut Butter (PB)
+            </label><br>
+            <label>
+                <input type="checkbox" name="pb" value="Butter"> Butter
+            </label><br>
+            <label>
+                <input type="checkbox" name="pb" value="Banana"> Banana
+            </label><br><br>
+            <button type="submit" onclick="saveOption()">次に進む</button>
+        </form>
+    </div>
+    <script>
+        window.onload = function() {
+            const bagel = localStorage.getItem('selectedBagel');
+            const spread = localStorage.getItem('selectedSpread');
+            
+            document.getElementById('bagel').innerText = bagel ? bagel : '選択なし';
+            document.getElementById('spread').innerText = spread ? spread : '選択なし';
+        };
+    
+        function saveOption() {
+            const selectedOptions = [];  // 選択されたオプションを格納する配列
+            const checkboxes = document.querySelectorAll('input[name="pb"]:checked');
+            
+            checkboxes.forEach((checkbox) => {
+                selectedOptions.push(checkbox.value);  // 選択されたオプションの値を配列に追加
+            });
+            
+            if (selectedOptions.length > 0) {
+                localStorage.setItem('selectedOptions', JSON.stringify(selectedOptions));  // 選択されたオプションを配列として保存
+                window.location.href = '3_Protein.html';  // 次のページに遷移
+            } else {
+                localStorage.setItem('selectedOptions', JSON.stringify('選択なし'));  // 選択なしを保存
+                window.location.href = '3_Protein.html';  // 次のページに遷移
+            }
+        }
+    </script>
+    
+
+</body>
+</html>

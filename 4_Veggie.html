@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggieオプション</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <p>選択したベーグル: <span id="bagel"></span></p>
+        <p>選択したスプレッド: <span id="spread"></span></p>
+        <p>選択したクリームチーズ: <span id="cream_cheese"></span></p>
+        <p>選択したオプション: <span id="options"></span></p>
+        <p>選択したプロテイン:<span id="proteins"></span></p>        
+        <h1>Veggieオプションを選んでください</h1>
+        <form id="veggieForm" action="5_Confirmation.html" method="get">
+            <label>
+                <input type="checkbox" name="veggie" value="Lettuce"> Lettuce
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Tomato"> Tomato
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Cucumber"> Cucumber
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Spinach"> Spinach
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Red Onion"> Red Onion
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Green Ppepper"> Green Pepper
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Beets"> Beets
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Carrots"> Carrots
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Sprouts"> Sprouts
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Capers"> Caper
+            </label><br>
+            <label>
+                <input type="checkbox" name="veggie" value="Pickles"> Pickle
+            </label><br><br>
+            <button type="button" onclick="saveVeggies()">確認する</button>
+        </form>
+    </div>
+    <script>
+        // ページ読み込み時にベーグルとスプレッドの情報を表示
+        window.onload = function() {
+            const bagel = localStorage.getItem('selectedBagel');
+            const cream_cheese = localStorage.getItem('selectedCreamCheese');
+            const spread = localStorage.getItem('selectedSpread');
+            const options = localStorage.getItem('selectedOptions');
+            const selectedProteins = JSON.parse(localStorage.getItem('selectedProteins'));
+
+            document.getElementById('bagel').innerText = bagel;
+            document.getElementById('cream_cheese').innerText = cream_cheese || '選択なし';
+            document.getElementById('spread').innerText = spread || '選択なし';
+            document.getElementById('options').innerText = options || '選択なし';
+
+            if (selectedProteins && selectedProteins.length > 0) {
+                document.getElementById('proteins').innerText = selectedProteins.join(', ');  // 選ばれたプロテインをカンマ区切りで表示
+            } else {
+                document.getElementById('proteins').innerText = '選択なし';  // プロテインが選ばれていない場合
+            }
+        };
+        function saveVeggies() {
+            const selectedVeggies = [];
+            const veggies = document.querySelectorAll('input[name="veggie"]:checked');
+            veggies.forEach(veggie => {
+                selectedVeggies.push(veggie.value);
+            });
+            
+            if (selectedVeggies.length > 0) {
+                localStorage.setItem('selectedVeggies', JSON.stringify(selectedVeggies));
+            } else {
+                localStorage.setItem('selectedVeggies', JSON.stringify([]));
+            }
+                window.location.href = '5_Confirmation.html';  // 次のページに遷移;
+        }
+    </script>
+</body>
+</html>

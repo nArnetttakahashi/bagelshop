@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proteinオプション</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>選択したベーグル: <span id="bagel"></span></p>
+        <p>選択したスプレッド: <span id="spread"></span></p>
+        <p>選択したクリームチーズ: <span id="cream_cheese"></span></p>
+        <p>選択したオプション: <span id="options"></span></p>
+
+        <h1>Proteinを選んでください</h1>
+        <form id="protainForm" action="4_Veggie.html" method="get">
+            <label>
+                <input type="checkbox" name="protein" value="Ham"> Ham
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Turkey"> Turkey
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Bacon"> Bacon
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Tuna"> Tuna
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Beef"> Beef
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Salmon"> Salmon
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Sausage"> HM Sausage
+            </label><br>
+            <label>
+                <input type="checkbox" name="protein" value="Egg"> Egg
+            </label><br><br>
+            <button type="button" onclick="saveProteins()">次に進む</button>
+        </form>
+    </div>
+
+    <script>
+        // ページ読み込み時にベーグルとスプレッドの情報を表示
+        window.onload = function() {
+            const bagel = localStorage.getItem('selectedBagel');
+            const cream_cheese = localStorage.getItem('selectedCreamCheese');
+            const spread = localStorage.getItem('selectedSpread');
+            const options = localStorage.getItem('selectedOptions')
+
+            document.getElementById('bagel').innerText = bagel;
+            document.getElementById('cream_cheese').innerText = cream_cheese || '選択なし';
+            document.getElementById('spread').innerText = spread || '選択なし';
+
+            if (options) {
+                document.getElementById('options').innerText = options;  // オプションの表示
+            } else {
+                document.getElementById('options').innetText = '選択なし';
+            }
+        };
+
+        // プロテインを保存し、次のページに遷移
+        function saveProteins() {
+            const selectedProteins = [];
+            const proteins = document.querySelectorAll('input[name="protein"]:checked');
+            proteins.forEach(protein => {
+                selectedProteins.push(protein.value);
+            });
+
+            
+            if (selectedProteins.length > 0) {
+                localStorage.setItem('selectedProteins', JSON.stringify(selectedProteins));
+            } else {
+                localStorage.setItem('selectedProteins', JSON.stringify([]));
+            }
+                window.location.href = '4_Veggie.html';  // 次のページに遷移;
+        }
+    </script>
+</body>
+
+</html>

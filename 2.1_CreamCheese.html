@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cream Cheeseの種類選択</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>選択したベーグル: <span id="bagel"></span></p>
+        <p>選択したスプレッド: <span id="spread"></span></p>
+        <h1>Cream Cheeseの種類を選んでください</h1>
+        <form id="cream_cheeseForm">
+            <label>
+                <input type="radio" name="cream_cheese" value="Plain"> Plain
+            </label><br>
+            <label>
+                <input type="radio" name="cream_cheese" value="Garlic"> Garlic
+            </label><br>
+            <label>
+                <input type="radio" name="cream_cheese" value="Hot Cheddar"> Hot Cheddar
+            </label><br><br><br>
+            <button type="button" class="button" onclick="saveCreamCheese()">次に進む</button>
+        </form>
+    </div>
+
+    <script>
+        // ページ読み込み時にベーグルとクリームチーズの情報を表示
+        window.onload = function() {
+            const bagel = localStorage.getItem('selectedBagel');
+            const cream_cheese = localStorage.getItem('selectedSpread');
+            
+            document.getElementById('bagel').innerText = bagel;
+            document.getElementById('spread').innerText = cream_cheese;
+        };
+
+        // クリームチーズを保存し、次のページに遷移
+        function saveCreamCheese() {
+            const cream_cheese = document.querySelector('input[name="cream_cheese"]:checked');
+            if (cream_cheese) {
+                localStorage.setItem('selectedCreamCheese', cream_cheese.value);
+                window.location.href = '3_Protein.html';  // 次のページに遷移
+            } else {
+                alert('クリームチーズを選んでください。');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ベース選択</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>選択したベーグル: <span id="bagel"></span></p>
+        
+        <h1>スプレッドを選んでください</h1>
+        
+        <form id="spreadForm" method="GET">
+            <label>
+                <input type="radio" name="spread" value="Cream Cheese" onclick="changeAction('2.1_CreamCheese.html')"> Cream Cheese
+            </label><br>
+            <label>
+                <input type="radio" name="spread" value="Butter" onclick="changeAction('2.2_PB.html')"> Butter
+            </label><br>
+            <label>
+                <input type="radio" name="spread" value="Hummus" onclick="changeAction('3_Protein.html')"> Hummus
+            </label><br>
+            <label>
+                <input type="radio" name="spread" value="Penut Butter" onclick="changeAction('2.2_PB.html')"> Peanut Butter (PB)
+            </label><br><br>
+            <button type="button" onclick="saveSpread()" class="button">次に進む</button>
+        </form>
+
+        <script>
+            // ページ読み込み時にベーグルの情報を表示
+            window.onload = function() {
+                const bagel = localStorage.getItem('selectedBagel');
+                document.getElementById('bagel').innerText = bagel;
+            };
+
+            // ラジオボタンをクリックした際にフォームの action を変更
+            function changeAction(url) {
+                document.getElementById('spreadForm').action = url;
+            }
+
+            // スプレッドを保存し、次のページに遷移
+            function saveSpread() {
+                const spread = document.querySelector('input[name="spread"]:checked');
+                if (spread) {
+                    localStorage.setItem('selectedSpread', spread.value);
+                    const formAction = document.getElementById('spreadForm').action;
+                    window.location.href = formAction;
+                } else {
+                    alert('スプレッドを選んでください。');
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>

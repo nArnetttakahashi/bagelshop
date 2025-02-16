@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Veggieオプション</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .container {
+                text-align: center;
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                font-size: 2em;
+                color: #333;
+            }
+            .button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 1em;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            .button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+<body>
+
+    <div class="container">
+        <h1>注文内容の確認</h1>
+        
+        <p>ベーグル: <span id="bagel"></span></p>
+        <p>スプレッド: <span id="spread"></span></p>
+        <p>クリームチーズ: <span id="cream_cheese"></span></p>
+        <p>オプション: <span id="options"></span></p>
+        <p>プロテイン<span id="proteins"></span></p>   
+        <p>Veggieオプション<span id="veggies"></span></p>
+
+        <button class="button" onclick="alert('注文が確定しました！')">注文確定</button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const bagel = localStorage.getItem('selectedBagel');
+            const cream_cheese = localStorage.getItem('selectedCreamCheese');
+            const spread = localStorage.getItem('selectedSpread');
+            const options = localStorage.getItem('selectedOptions');
+            const selectedProteins = JSON.parse(localStorage.getItem('selectedProteins'));
+            const selectedVeggies = JSON.parse(localStorage.getItem('selectedVeggies'));
+
+            document.getElementById('bagel').innerText = bagel;
+            document.getElementById('cream_cheese').innerText = cream_cheese || '選択なし';
+            document.getElementById('spread').innerText = spread || '選択なし';
+            document.getElementById('options').innerText = options || '選択なし';
+
+            if (selectedProteins && selectedProteins.length > 0) {
+                document.getElementById('proteins').innerText = selectedProteins.join(', ');  // 選ばれたプロテインをカンマ区切りで表示
+            } else {
+                document.getElementById('proteins').innerText = '選択なし';  // プロテインが選ばれていない場合
+            }
+            if (selectedVeggies && selectedVeggies.length > 0) {
+                document.getElementById('veggies').innerText = selectedVeggies.join(', ');  // 選ばれたプロテインをカンマ区切りで表示
+            } else {
+                document.getElementById('veggies').innerText = '選択なし';  // プロテインが選ばれていない場合
+            }
+        };
+        
+    </script>
+
+</body>
+</html>
+
+
